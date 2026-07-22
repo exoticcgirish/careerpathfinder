@@ -2,10 +2,6 @@ import axios from "axios";
 
 const TOKEN_KEY = "cpf_token";
 
-import axios from "axios";
-
-const TOKEN_KEY = "cpf_token";
-
 export const api = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}/api/v1`,
   headers: {
