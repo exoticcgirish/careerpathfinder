@@ -2,9 +2,15 @@ import axios from "axios";
 
 const TOKEN_KEY = "cpf_token";
 
+import axios from "axios";
+
+const TOKEN_KEY = "cpf_token";
+
 export const api = axios.create({
-  baseURL: "/api/v1",
-  headers: { "Content-Type": "application/json" },
+  baseURL: `${import.meta.env.VITE_API_URL}/api/v1`,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 api.interceptors.request.use((config) => {
@@ -23,7 +29,7 @@ api.interceptors.response.use(
       }
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export const auth = {
@@ -36,7 +42,11 @@ export const auth = {
     return data.user;
   },
   async signup(email, password, full_name) {
-    const { data } = await api.post("/auth/signup", { email, password, full_name });
+    const { data } = await api.post("/auth/signup", {
+      email,
+      password,
+      full_name,
+    });
     localStorage.setItem(TOKEN_KEY, data.access_token);
     return data.user;
   },
@@ -46,7 +56,8 @@ export const auth = {
 };
 
 export const roadmaps = {
-  generate: (payload) => api.post("/roadmap/generate", payload).then((r) => r.data),
+  generate: (payload) =>
+    api.post("/roadmap/generate", payload).then((r) => r.data),
   list: () => api.get("/roadmap").then((r) => r.data),
   get: (id) => api.get(`/roadmap/${id}`).then((r) => r.data),
   remove: (id) => api.delete(`/roadmap/${id}`),
