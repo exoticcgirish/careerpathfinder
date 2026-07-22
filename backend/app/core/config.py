@@ -27,7 +27,13 @@ class Settings(BaseSettings):
     GEMINI_MODEL: str = Field(default="gemini-2.0-flash-exp")
 
     # CORS
-    CORS_ORIGINS: list[str] = Field(default=["http://localhost:5173", "http://localhost:3000"])
+    CORS_ORIGINS: list[str] = Field(
+    default=[
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "https://careerpathfinder-beta.vercel.app",
+    ]
+)
 
     # Rate limiting
     RATE_LIMIT_PER_MINUTE: int = 30
